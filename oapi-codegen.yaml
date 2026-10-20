@@ -1,0 +1,6 @@
+package: apispec
+output: Go/api.gen.go
+generate:
+  models: true
+output-options:
+  skip-prune: true

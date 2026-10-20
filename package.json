@@ -1,0 +1,35 @@
+{
+  "name": "api-spec",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "packageManager": "npm@11.19.1",
+  "devDependencies": {
+    "@typespec/compiler": "1.18.0",
+    "@typespec/http": "1.18.0",
+    "@typespec/json-schema": "1.18.0",
+    "@typespec/openapi": "1.18.0",
+    "@typespec/openapi3": "1.18.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22.18.0",
+    "npm": ">=11"
+  },
+  "types": "./TypeScript/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./TypeScript/index.d.ts"
+    }
+  },
+  "scripts": {
+    "watch": "node scripts/watch.mjs",
+    "generate:spec": "tsp compile src",
+    "generate:typescript": "openapi-typescript openapi/openapi.yaml -o TypeScript/index.d.ts",
+    "generate:go": "go tool oapi-codegen -config oapi-codegen.yaml openapi/openapi.yaml",
+    "generate": "npm run generate:spec && npm run generate:typescript && npm run generate:go",
+    "build": "npm run generate",
+    "check": "tsc --noEmit && go build ./Go"
+  }
+}
